@@ -1,0 +1,260 @@
+services:
+  # ----------------------------
+  # ARK SA - The Island
+  # ----------------------------
+  ark-sa-island:
+    image: johnnyknighten/ark-sa-server:latest
+    container_name: ark-sa-island
+    restart: unless-stopped
+
+    ports:
+      # Main game ports
+      - "7777:7777/udp"
+      - "7778:7778/udp"
+
+      # Steam query port
+      - "27015:27015/udp"
+
+      # RCON management port
+      - "27020:27020/tcp"
+
+    environment:
+      # Basic server identity
+      SERVER_NAME: '"OCB-ASA-Island"'
+      SERVER_PASSWORD: "8808"
+      ADMIN_PASSWORD: "loot_hure"
+      TZ: "Europe/Zurich"
+      MAP: "TheIsland_WP"
+
+    
+
+      # Port configuration used by the server internally
+      GAME_PORT: "7777"
+      QUERY_PORT: "27015"
+      RCON_PORT: "27020"
+
+      # Automatic maintenance behavior
+      SCHEDULED_RESTART: "False"
+      RESTART_CRON: "0 6 * * *"
+      UPDATE_ON_BOOT: "True"
+      BACKUP_ON_SCHEDULED_RESTART: "True"
+      RETAIN_BACKUPS: "14"
+      SCHEDULED_UPDATE: "False"
+      SKIP_FILE_VALIDATION: "False"
+      MANUAL_CONFIG: "False"
+
+      # Cluster settings for cross-ARK transfers
+      CLUSTER_ID: "ocb-asa-cluster"
+      CLUSTER_DIR: "/ark-server/cluster"
+
+      # Allows broader transfer behavior between clustered maps
+      NO_TRANSFER_FROM_FILTERING: "True"
+      PREVENTDOWNLOADDINOS: "False"
+      PREVENTUPLOADDINOS: "False"
+      CROSSARKALLOWFOREIGNDINODOWNLOADS: "True"
+
+      # Enabled mods
+      MOD_LIST: "947033,935408,1188679,946841,950914"
+
+      # Quality of life settings
+      CONFIG_GameUserSettings_ServerSettings_AllowFlyerCarryPvE: "True"
+      CONFIG_GameUserSettings_ServerSettings_ShowMapPlayerLocation: "True"
+      CONFIG_GameUserSettings_ServerSettings_SupplyCrateLootQualityMultiplier: "2.0"
+      CONFIG_GameUserSettings_ServerSettings_FishingLootQualityMultiplier: "3.0"
+      CONFIG_GameUserSettings_ServerSettings_XPMultiplier: "2.0"
+      CONFIG_GameUserSettings_ServerSettings_HarvestAmountMultiplier: "3.0"
+      CONFIG_GameUserSettings_ServerSettings_AutoSavePeriodMinutes: "15"
+      CONFIG_GameUserSettings_ServerSettings_DisableCryopodFridgeRequirement: "True"
+
+            # Cave / building settings
+      CONFIG_GameUserSettings_ServerSettings_AllowCaveBuildingPvE: "True"
+      CONFIG_GameUserSettings_ServerSettings_AllowCaveBuildingPvP: "True"
+      CONFIG_GameUserSettings_ServerSettings_DisableStructurePlacementCollision: "True"
+      CONFIG_GameUserSettings_ServerSettings_bDisableStructurePlacementCollision: "True"
+
+      # Taming settings
+      CONFIG_GameUserSettings_ServerSettings_TamingSpeedMultiplier: "5.0"
+
+      # Breeding settings
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_MatingIntervalMultiplier: "0.01"
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_MatingSpeedMultiplier: "5.0"
+
+      # Egg and gestation settings
+      CONFIG_GameUserSettings_ServerSettings_EggHatchSpeedMultiplier: "100.0"
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_EggHatchSpeedMultiplier: "100.0"
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_BabyGestationSpeedMultiplier: "100.0"
+      CONFIG_GameUserSettings_ServerSettings_LayEggIntervalMultiplier: "0.2"
+
+      # Baby growth and food settings
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_BabyMatureSpeedMultiplier: "150.0"
+      CONFIG_GameUserSettings_ServerSettings_BabyFoodConsumptionSpeedMultiplier: "0.2"
+
+      # Imprinting and cuddle settings
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_BabyCuddleIntervalMultiplier: "0.01"
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_BabyCuddleGracePeriodMultipler: "20.0"
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_BabyCuddleLoseImprintQualitySpeedMultiplier: "0.01"
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_BabyImprintAmountMultiplier: "10.0"
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_BabyImprintingStatScaleMultiplier: "1.0"
+
+    # teleoprter
+      CONFIG_GameUserSettings_AwesomeTeleporters_AllowLastRemoteLocation: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_AllowTeleportingToPlayers: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_AllowTeleportingToObelisks: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_AllowTeleportersOnSaddles: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_TeleportersAreTransmitters: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_AllowTeleportingOutOfPreventionZones: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_AllowTeleportingIntoPreventionZones: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_AllowCorpseFinder: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_CorpseRequiresRemote: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_AllowFindDinos: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_MeshDetection: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_BubbleDuration: "5"
+      CONFIG_GameUserSettings_AwesomeTeleporters_AdminsSeeAllTeleporters: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_CombatCooldown: "0"
+      CONFIG_GameUserSettings_AwesomeTeleporters_MaxTeleportersPerTribe: "50"
+      CONFIG_GameUserSettings_AwesomeTeleporters_MaxTeleportersPerPlayer: "50"
+
+
+    volumes:
+      # Persistent game server data
+      - /home/lord/ark-data-island/server:/ark-server/server
+
+      # Log output
+      - /home/lord/ark-data-island/logs:/ark-server/logs
+
+      # Backup storage
+      - /home/lord/ark-data-island/backups:/ark-server/backups
+
+      # Shared cluster data for map transfers
+      - /home/lord/ark-cluster:/ark-server/cluster
+
+  # ----------------------------
+  # ARK SA - Ragnarok
+  # ----------------------------
+  ark-sa-ragnarok:
+    image: johnnyknighten/ark-sa-server:latest
+    container_name: ark-sa-ragnarok
+    restart: unless-stopped
+
+    ports:
+      # Main game ports
+      - "7787:7787/udp"
+      - "7788:7788/udp"
+
+      # Steam query port
+      - "27025:27025/udp"
+
+      # RCON management port
+      - "27030:27030/tcp"
+
+    environment:
+      # Basic server identity
+      SERVER_NAME: '"OCB-ASA-Ragnarok"'
+      SERVER_PASSWORD: "8808"
+      ADMIN_PASSWORD: "loot_hure"
+      TZ: "Europe/Zurich"
+      MAP: "Ragnarok_WP"
+
+
+      # Port configuration used by the server internally
+      GAME_PORT: "7787"
+      QUERY_PORT: "27025"
+      RCON_PORT: "27030"
+
+      # Automatic maintenance behavior
+      SCHEDULED_RESTART: "False"
+      RESTART_CRON: "5 6 * * *"
+      UPDATE_ON_BOOT: "True"
+      BACKUP_ON_SCHEDULED_RESTART: "True"
+      RETAIN_BACKUPS: "14"
+      SCHEDULED_UPDATE: "False"
+      SKIP_FILE_VALIDATION: "False"
+      MANUAL_CONFIG: "False"
+
+      # Cluster settings for cross-ARK transfers
+      CLUSTER_ID: "ocb-asa-cluster"
+      CLUSTER_DIR: "/ark-server/cluster"
+
+      # Allows broader transfer behavior between clustered maps
+      NO_TRANSFER_FROM_FILTERING: "True"
+      PREVENTDOWNLOADDINOS: "False"
+      PREVENTUPLOADDINOS: "False"
+      CROSSARKALLOWFOREIGNDINODOWNLOADS: "True"
+
+      # Enabled mods
+      MOD_LIST: "947033,935408,1188679,946841,950914"
+
+  
+      # Quality of life settings
+      CONFIG_GameUserSettings_ServerSettings_AllowFlyerCarryPvE: "True"
+      CONFIG_GameUserSettings_ServerSettings_ShowMapPlayerLocation: "True"
+      CONFIG_GameUserSettings_ServerSettings_SupplyCrateLootQualityMultiplier: "2.0"
+      CONFIG_GameUserSettings_ServerSettings_FishingLootQualityMultiplier: "3.0"
+      CONFIG_GameUserSettings_ServerSettings_XPMultiplier: "2.0"
+      CONFIG_GameUserSettings_ServerSettings_HarvestAmountMultiplier: "3.0"
+      CONFIG_GameUserSettings_ServerSettings_AutoSavePeriodMinutes: "15"
+      CONFIG_GameUserSettings_ServerSettings_DisableCryopodFridgeRequirement: "True"
+
+
+      # Cave / building settings
+      CONFIG_GameUserSettings_ServerSettings_AllowCaveBuildingPvE: "True"
+      CONFIG_GameUserSettings_ServerSettings_AllowCaveBuildingPvP: "True"
+      CONFIG_GameUserSettings_ServerSettings_DisableStructurePlacementCollision: "True"
+      CONFIG_GameUserSettings_ServerSettings_bDisableStructurePlacementCollision: "True"
+
+
+      # Taming settings
+      CONFIG_GameUserSettings_ServerSettings_TamingSpeedMultiplier: "5.0"
+
+      # Breeding settings
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_MatingIntervalMultiplier: "0.01"
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_MatingSpeedMultiplier: "5.0"
+
+      # Egg and gestation settings
+      CONFIG_GameUserSettings_ServerSettings_EggHatchSpeedMultiplier: "100.0"
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_EggHatchSpeedMultiplier: "100.0"
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_BabyGestationSpeedMultiplier: "100.0"
+      CONFIG_GameUserSettings_ServerSettings_LayEggIntervalMultiplier: "0.2"
+
+      # Baby growth and food settings
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_BabyMatureSpeedMultiplier: "150.0"
+      CONFIG_GameUserSettings_ServerSettings_BabyFoodConsumptionSpeedMultiplier: "0.2"
+
+      # Imprinting and cuddle settings
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_BabyCuddleIntervalMultiplier: "0.01"
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_BabyCuddleGracePeriodMultipler: "20.0"
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_BabyCuddleLoseImprintQualitySpeedMultiplier: "0.01"
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_BabyImprintAmountMultiplier: "10.0"
+      CONFIG_Game__SLASH_Script_SLASH_ShooterGame_DOT_ShooterGameMode_BabyImprintingStatScaleMultiplier: "1.0"
+
+
+          # teleoprter
+      CONFIG_GameUserSettings_AwesomeTeleporters_AllowLastRemoteLocation: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_AllowTeleportingToPlayers: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_AllowTeleportingToObelisks: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_AllowTeleportersOnSaddles: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_TeleportersAreTransmitters: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_AllowTeleportingOutOfPreventionZones: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_AllowTeleportingIntoPreventionZones: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_AllowCorpseFinder: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_CorpseRequiresRemote: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_AllowFindDinos: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_MeshDetection: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_BubbleDuration: "5"
+      CONFIG_GameUserSettings_AwesomeTeleporters_AdminsSeeAllTeleporters: "True"
+      CONFIG_GameUserSettings_AwesomeTeleporters_CombatCooldown: "0"
+      CONFIG_GameUserSettings_AwesomeTeleporters_MaxTeleportersPerTribe: "50"
+      CONFIG_GameUserSettings_AwesomeTeleporters_MaxTeleportersPerPlayer: "50"
+
+    volumes:
+      # Persistent game server data
+      - /home/lord/ark-data-ragnarok/server:/ark-server/server
+
+      # Log output
+      - /home/lord/ark-data-ragnarok/logs:/ark-server/logs
+
+      # Backup storage
+      - /home/lord/ark-data-ragnarok/backups:/ark-server/backups
+
+      # Shared cluster data for map transfers
+      - /home/lord/ark-cluster:/ark-server/cluster

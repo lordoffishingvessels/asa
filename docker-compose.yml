@@ -1,8 +1,17 @@
 x-common-env: &common-env
   # Basic server identity (shared)
-  SERVER_PASSWORD: "8808"
+  # SERVER_PASSWORD removed — access controlled via whitelist (exclusivejoin)
   ADMIN_PASSWORD: "loot_hure"
   TZ: "Europe/Zurich"
+
+  # Whitelist-only joining — EOS IDs are in PlayersJoinNoCheckList.txt in each server's volume:
+  #   /home/lord/ark-data-<map>/server/ShooterGame/Saved/PlayersJoinNoCheckList.txt
+  # Player EOS IDs:
+  #   0002be8105bc465199247e01a4ccd247  # dani
+  #   000244dd9c964338b8f82a6421c7430e  # stoeff
+  #   0002fa73b714406092720963541fd245  # schule
+  # Restart the container after editing the file.
+  EXTRA_LAUNCH_OPTIONS: "-exclusivejoin"
 
   # Automatic maintenance behavior
   SCHEDULED_RESTART: "False"
@@ -140,14 +149,14 @@ services:
 
     ports:
       # Main game ports
-      - "7787:7787/udp"
-      - "7788:7788/udp"
+      - "7779:7779/udp"
+      - "7780:7780/udp"
 
       # Steam query port
-      - "27025:27025/udp"
+      - "27016:27016/udp"
 
       # RCON management port
-      - "27030:27030/tcp"
+      - "27021:27021/tcp"
 
     environment:
       <<: *common-env
@@ -157,9 +166,9 @@ services:
       MAP: "Ragnarok_WP"
 
       # Port configuration used by the server internally
-      GAME_PORT: "7787"
-      QUERY_PORT: "27025"
-      RCON_PORT: "27030"
+      GAME_PORT: "7779"
+      QUERY_PORT: "27016"
+      RCON_PORT: "27021"
 
     volumes:
       # Persistent game server data
@@ -184,14 +193,14 @@ services:
 
     ports:
       # Main game ports
-      - "7797:7797/udp"
-      - "7798:7798/udp"
+      - "7781:7781/udp"
+      - "7782:7782/udp"
 
       # Steam query port
-      - "27035:27035/udp"
+      - "27017:27017/udp"
 
       # RCON management port
-      - "27040:27040/tcp"
+      - "27022:27022/tcp"
 
     environment:
       <<: *common-env
@@ -201,9 +210,9 @@ services:
       MAP: "Extinction_WP"
 
       # Port configuration used by the server internally
-      GAME_PORT: "7797"
-      QUERY_PORT: "27035"
-      RCON_PORT: "27040"
+      GAME_PORT: "7781"
+      QUERY_PORT: "27017"
+      RCON_PORT: "27022"
 
     volumes:
       # Persistent game server data
